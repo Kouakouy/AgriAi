@@ -4,8 +4,8 @@ import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'AgriAI Africa — IA Agricole pour l\'Afrique',
-  description: 'Plateforme intelligente d\'aide à la décision agricole pour les agriculteurs africains. Diagnostic des cultures via IA Google Gemini, conseils personnalisés et suivi des plantations.',
-  keywords: 'agriculture, IA, Afrique, diagnostic plantes, Gemini AI, maladies cultures',
+  description: 'Plateforme intelligente d\'aide à la décision agricole pour les agriculteurs africains. Diagnostic des cultures via l\'IA AgriBot, conseils personnalisés et suivi des plantations.',
+  keywords: 'agriculture, IA, Afrique, diagnostic plantes, AgriBot, maladies cultures',
   authors: [{ name: 'AgriAI Africa Team' }],
   openGraph: {
     title: 'AgriAI Africa',

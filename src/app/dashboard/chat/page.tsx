@@ -99,7 +99,7 @@ export default function ChatPage() {
     <div className="fade-in" style={{ height: 'calc(100vh - 4rem)', display: 'flex', gap: '1.5rem', maxWidth: 1200, margin: '0 auto' }}>
 
       {/* ── Sessions Sidebar ─────────────────────────── */}
-      <div className="card glass" style={{ width: 260, flexShrink: 0, padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', height: '100%', overflowY: 'auto', border: '1px solid rgba(255,255,255,0.05)' }}>
+      <div className="card glass" style={{ width: 260, flexShrink: 0, padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', height: '100%', overflowY: 'auto', border: '1px solid var(--border)' }}>
         <button id="new-chat-btn" className="btn btn-outline btn-sm w-full glow-pulse" onClick={createSession} style={{ justifyContent: 'center', borderColor: 'var(--green-400)', color: 'var(--green-400)' }}>
           <Plus size={14} /> Nouvelle session
         </button>
@@ -142,12 +142,12 @@ export default function ChatPage() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', height: '100%', overflow: 'hidden', background: 'transparent' }}>
         
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.5rem 0 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.5rem 0 1.5rem', borderBottom: '1px solid var(--border)', marginBottom: '1rem' }}>
            <div className="badge badge-green" style={{ fontSize: '0.75rem', padding: '0.3rem 0.8rem' }}>
-             <Brain size={12} /> Google Gemini 1.5 Pro
+             <Brain size={12} /> AgriBot Engine
            </div>
-           <div className="badge badge-gray" style={{ fontSize: '0.75rem', padding: '0.3rem 0.8rem', background: 'rgba(255,255,255,0.05)', border: 'none' }}>
-             <CheckCircle size={12} color="var(--green-400)" /> Modèle Agricole Actif
+           <div className="badge badge-gray" style={{ fontSize: '0.75rem', padding: '0.3rem 0.8rem', background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
+             <CheckCircle size={12} color="var(--green-600)" /> Modèle Agricole Actif
            </div>
         </div>
 
@@ -165,7 +165,7 @@ export default function ChatPage() {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', maxWidth: 700, width: '100%' }}>
                 {SUGGESTIONS.map((s) => (
-                  <div key={s} onClick={() => sendMessage(s)} className="card glass" style={{ padding: '1rem 1.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div key={s} onClick={() => sendMessage(s)} className="card glass" style={{ padding: '1rem 1.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s', border: '1px solid var(--border)' }}>
                     <Leaf size={16} color="var(--green-400)" style={{ flexShrink: 0 }} />
                     <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{s}</span>
                   </div>
@@ -175,11 +175,11 @@ export default function ChatPage() {
           )}
 
           {messages.map((m, i) => (
-            <div key={i} style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', padding: m.role === 'user' ? '1rem 1.5rem' : '0.5rem 1.5rem', borderRadius: '16px', background: m.role === 'user' ? 'rgba(255,255,255,0.02)' : 'transparent', maxWidth: 900, margin: '0 auto', width: '100%' }}>
+            <div key={i} style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', padding: m.role === 'user' ? '1rem 1.5rem' : '0.5rem 1.5rem', borderRadius: '16px', background: m.role === 'user' ? '#f1f5f9' : 'transparent', maxWidth: 900, margin: '0 auto', width: '100%' }}>
               {/* Avatar */}
               <div style={{ width: 36, height: 36, borderRadius: m.role === 'user' ? '50%' : '10px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
                 background: m.role === 'user' ? 'var(--bg-card)' : 'var(--gradient-brand)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                border: '1px solid var(--border)',
                 marginTop: m.role === 'model' ? 4 : 0
               }}>
                 {m.role === 'user' ? <User size={16} color="var(--text-muted)" /> : <Bot size={18} color="#fff" />}
@@ -217,7 +217,7 @@ export default function ChatPage() {
           <div style={{ maxWidth: 800, margin: '0 auto', width: '100%' }}>
             <form onSubmit={(e) => { e.preventDefault(); sendMessage(); }} 
               className="glass"
-              style={{ display: 'flex', gap: '0.75rem', background: 'rgba(15, 34, 20, 0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px', padding: '0.6rem 0.6rem 0.6rem 1.25rem', alignItems: 'flex-end', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}>
+              style={{ display: 'flex', gap: '0.75rem', background: '#ffffff', border: '1px solid var(--border)', borderRadius: '24px', padding: '0.6rem 0.6rem 0.6rem 1.25rem', alignItems: 'flex-end', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
               
               <textarea 
                 id="chat-input" 

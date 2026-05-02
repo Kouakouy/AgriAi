@@ -36,7 +36,7 @@ export default function CropsPage() {
       setCrops((prev) => [data.crop, ...prev]);
       setShowModal(false);
       setForm({ name: '', type: '', plantedAt: '', location: '', notes: '', status: 'healthy' });
-      toast.success('Culture ajoutée ! 🌱');
+      toast.success('Culture ajoutée !');
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Erreur lors de l\'ajout');
     } finally { setSaving(false); }
@@ -100,8 +100,8 @@ export default function CropsPage() {
                   <X size={14} />
                 </button>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
-                    🌱
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', color: 'var(--green-400)' }}>
+                    <Sprout size={20} />
                   </div>
                   <div>
                     <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>{crop.name}</div>
@@ -130,32 +130,53 @@ export default function CropsPage() {
 
       {/* Add Crop Modal */}
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-          <div className="card glass fade-in" style={{ width: '100%', maxWidth: 480, padding: '2rem', position: 'relative' }}>
-            <button onClick={() => setShowModal(false)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>
-              <X size={18} />
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+          <div className="fade-in" style={{ width: '100%', maxWidth: 520, background: '#ffffff', borderRadius: '24px', padding: '2.5rem', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}>
+            <button onClick={() => setShowModal(false)} style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: '#f1f5f9', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}>
+              <X size={16} />
             </button>
-            <h3 style={{ marginBottom: '1.5rem' }}>Ajouter une culture</h3>
-            <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '2rem' }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--green-600)' }}>
+                <Sprout size={24} />
+              </div>
+              <div>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', margin: 0, color: 'var(--text-primary)' }}>Ajouter une culture</h2>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Remplissez les détails pour suivre votre parcelle.</p>
+              </div>
+            </div>
+
+            <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div className="form-group">
                 <label className="form-label">Nom de la parcelle *</label>
-                <input className="form-input" placeholder="Ex: Champ Nord" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+                <input className="form-input" placeholder="Ex: Champ Nord (Section A)" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ height: '3rem', borderRadius: '12px' }} />
               </div>
-              <div className="form-group">
-                <label className="form-label">Type de culture *</label>
-                <select className="form-input" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} style={{ paddingLeft: '1rem', appearance: 'auto', background: 'var(--bg-input)' }}>
-                  <option value="">Sélectionner...</option>
-                  {CROP_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
-                </select>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div className="form-group">
-                  <label className="form-label">Date de plantation *</label>
-                  <input className="form-input" type="date" value={form.plantedAt} onChange={(e) => setForm({ ...form, plantedAt: e.target.value })} />
+                  <label className="form-label">Type de culture *</label>
+                  <select className="form-input" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} style={{ height: '3rem', borderRadius: '12px', paddingLeft: '1rem', appearance: 'auto', background: 'var(--bg-input)' }}>
+                    <option value="">Sélectionner...</option>
+                    {CROP_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Date de semis *</label>
+                  <input className="form-input" type="date" value={form.plantedAt} onChange={(e) => setForm({ ...form, plantedAt: e.target.value })} style={{ height: '3rem', borderRadius: '12px', color: form.plantedAt ? 'inherit' : 'var(--text-muted)' }} />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '1rem' }}>
+                <div className="form-group">
+                  <label className="form-label">Localisation</label>
+                  <div style={{ position: 'relative' }}>
+                     <MapPin size={16} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                     <input className="form-input" placeholder="Ex: Divo, CI" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} style={{ height: '3rem', borderRadius: '12px', paddingLeft: '2.5rem' }} />
+                  </div>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Statut</label>
-                  <select className="form-input" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} style={{ paddingLeft: '1rem', appearance: 'auto', background: 'var(--bg-input)' }}>
+                  <select className="form-input" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} style={{ height: '3rem', borderRadius: '12px', paddingLeft: '1rem', appearance: 'auto', background: 'var(--bg-input)' }}>
                     <option value="healthy">Saine</option>
                     <option value="at_risk">À risque</option>
                     <option value="diseased">Malade</option>
@@ -163,18 +184,16 @@ export default function CropsPage() {
                   </select>
                 </div>
               </div>
+
               <div className="form-group">
-                <label className="form-label">Localisation</label>
-                <input className="form-input" placeholder="Ex: Village de Divo, Côte d'Ivoire" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+                <label className="form-label">Observations (optionnel)</label>
+                <textarea className="form-input" placeholder="Détails sur la terre, les engrais utilisés..." value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} style={{ resize: 'vertical', minHeight: '80px', borderRadius: '12px', padding: '1rem' }} />
               </div>
-              <div className="form-group">
-                <label className="form-label">Notes</label>
-                <textarea className="form-input" placeholder="Observations..." value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} style={{ resize: 'vertical', minHeight: 80 }} />
-              </div>
-              <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
-                <button type="button" className="btn btn-outline" style={{ flex: 1 }} onClick={() => setShowModal(false)}>Annuler</button>
-                <button id="save-crop-btn" type="submit" className="btn btn-primary" style={{ flex: 1 }} disabled={saving}>
-                  {saving ? <span className="spinner" /> : <><Plus size={14} /> Ajouter</>}
+
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '0.75rem' }}>
+                <button type="button" className="btn btn-outline" style={{ flex: 1, height: '3rem', borderRadius: '12px', fontWeight: 600 }} onClick={() => setShowModal(false)}>Annuler</button>
+                <button id="save-crop-btn" type="submit" className="btn btn-primary" style={{ flex: 1, height: '3rem', borderRadius: '12px', fontWeight: 600 }} disabled={saving}>
+                  {saving ? <span className="spinner" /> : 'Enregistrer la culture'}
                 </button>
               </div>
             </form>

@@ -2,48 +2,48 @@
 
 /* ─── Design Tokens ─────────────────────────────────────── */
 :root {
-  /* Brand: deep forest green → vibrant lime */
-  --green-950: #052e16;
-  --green-900: #14532d;
-  --green-800: #166534;
-  --green-700: #15803d;
-  --green-600: #16a34a;
-  --green-500: #22c55e;
-  --green-400: #4ade80;
-  --green-300: #86efac;
-  --green-200: #bbf7d0;
-  --green-100: #dcfce7;
+  /* Brand: Softer emerald green */
+  --green-950: #022c22;
+  --green-900: #064e3b;
+  --green-800: #065f46;
+  --green-700: #047857;
+  --green-600: #059669;
+  --green-500: #10b981;
+  --green-400: #34d399;
+  --green-300: #6ee7b7;
+  --green-200: #a7f3d0;
+  --green-100: #d1fae5;
 
-  /* Accent: warm amber (African sun) */
+  /* Accent: warm amber */
   --amber-500: #f59e0b;
   --amber-400: #fbbf24;
   --amber-300: #fcd34d;
 
-  /* Backgrounds */
-  --bg-base:    #030f06;
-  --bg-surface: #0a1a0d;
-  --bg-card:    #0f2214;
-  --bg-card-hover: #142b18;
-  --bg-input:   #0d1f10;
+  /* Backgrounds: Professional Light Theme */
+  --bg-base:    #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card:    #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --bg-input:   #ffffff;
 
   /* Borders */
-  --border:     #1a3a22;
-  --border-glow: rgba(34, 197, 94, 0.3);
+  --border:     #e2e8f0;
+  --border-glow: rgba(16, 185, 129, 0.2);
 
   /* Text */
-  --text-primary:   #f0fdf4;
-  --text-secondary: #86efac;
-  --text-muted:     #4b7a56;
+  --text-primary:   #0f172a;
+  --text-secondary: #334155;
+  --text-muted:     #64748b;
 
   /* Gradients */
-  --gradient-brand: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
-  --gradient-glow:  radial-gradient(ellipse at top, rgba(34,197,94,0.15) 0%, transparent 70%);
-  --gradient-card:  linear-gradient(145deg, #0f2214 0%, #0a1a0d 100%);
+  --gradient-brand: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  --gradient-glow:  none;
+  --gradient-card:  none;
 
   /* Shadows */
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.5);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 30px rgba(34,197,94,0.15);
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:  0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
 
   /* Radius */
   --radius-sm: 8px;
@@ -105,7 +105,7 @@ a:hover { color: var(--green-300); }
 
 /* ─── Card Component ────────────────────────────────────── */
 .card {
-  background: var(--gradient-card);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
@@ -120,10 +120,10 @@ a:hover { color: var(--green-300); }
 
 /* ─── Glassmorphism ─────────────────────────────────────── */
 .glass {
-  background: rgba(15, 34, 20, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(34, 197, 94, 0.15);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 /* ─── Buttons ───────────────────────────────────────────── */
@@ -154,16 +154,16 @@ a:hover { color: var(--green-300); }
 
 .btn-outline {
   background: transparent;
-  border: 1px solid var(--border-glow);
-  color: var(--green-400);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
 }
-.btn-outline:hover:not(:disabled) { background: rgba(34,197,94,0.1); border-color: var(--green-400); }
+.btn-outline:hover:not(:disabled) { background: var(--bg-surface); border-color: var(--border); }
 
 .btn-ghost {
   background: transparent;
   color: var(--text-muted);
 }
-.btn-ghost:hover { background: var(--bg-card); color: var(--text-primary); }
+.btn-ghost:hover { background: var(--bg-surface); color: var(--text-primary); }
 
 .btn-danger { background: linear-gradient(135deg, #991b1b, #dc2626); color: #fff; }
 .btn-danger:hover { box-shadow: 0 4px 15px rgba(220,38,38,0.4); transform: translateY(-1px); }
@@ -204,16 +204,16 @@ a:hover { color: var(--green-300); }
   font-size: 0.75rem;
   font-weight: 600;
 }
-.badge-green { background: rgba(34,197,94,0.15); color: var(--green-400); border: 1px solid rgba(34,197,94,0.3); }
-.badge-amber { background: rgba(245,158,11,0.15); color: var(--amber-400); border: 1px solid rgba(245,158,11,0.3); }
-.badge-red   { background: rgba(220,38,38,0.15); color: #f87171; border: 1px solid rgba(220,38,38,0.3); }
-.badge-gray  { background: rgba(100,100,100,0.15); color: #9ca3af; border: 1px solid rgba(100,100,100,0.3); }
+.badge-green { background: rgba(34,197,94,0.15); color: #166534; border: 1px solid rgba(34,197,94,0.3); }
+.badge-amber { background: rgba(245,158,11,0.15); color: #92400e; border: 1px solid rgba(245,158,11,0.3); }
+.badge-red   { background: rgba(220,38,38,0.15); color: #991b1b; border: 1px solid rgba(220,38,38,0.3); }
+.badge-gray  { background: rgba(100,100,100,0.15); color: #374151; border: 1px solid rgba(100,100,100,0.3); }
 
 /* ─── Severity badge helpers ─────────────────────────────── */
-.severity-low      { background: rgba(34,197,94,0.15);  color: var(--green-400);  border: 1px solid rgba(34,197,94,0.3);  }
-.severity-medium   { background: rgba(245,158,11,0.15); color: var(--amber-400);  border: 1px solid rgba(245,158,11,0.3); }
-.severity-high     { background: rgba(249,115,22,0.15); color: #fb923c;           border: 1px solid rgba(249,115,22,0.3); }
-.severity-critical { background: rgba(220,38,38,0.15);  color: #f87171;           border: 1px solid rgba(220,38,38,0.3);  }
+.severity-low      { background: rgba(34,197,94,0.15);  color: #166534;  border: 1px solid rgba(34,197,94,0.3);  }
+.severity-medium   { background: rgba(245,158,11,0.15); color: #92400e;  border: 1px solid rgba(245,158,11,0.3); }
+.severity-high     { background: rgba(249,115,22,0.15); color: #c2410c;  border: 1px solid rgba(249,115,22,0.3); }
+.severity-critical { background: rgba(220,38,38,0.15);  color: #991b1b;  border: 1px solid rgba(220,38,38,0.3);  }
 
 /* ─── Loading Spinner ───────────────────────────────────── */
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -235,26 +235,26 @@ a:hover { color: var(--green-300); }
 /* ─── Floating Orbs (AI Aesthetic) ──────────────────────── */
 @keyframes float1 {
   0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
+  33% { transform: translate(30px, -50px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
   100% { transform: translate(0, 0) scale(1); }
 }
 @keyframes float2 {
   0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-30px, 40px) scale(0.9); }
-  66% { transform: translate(20px, -20px) scale(1.1); }
+  33% { transform: translate(-30px, 40px) scale(0.95); }
+  66% { transform: translate(20px, -20px) scale(1.05); }
   100% { transform: translate(0, 0) scale(1); }
 }
 .orb-1 {
   position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
-  background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
-  border-radius: 50%; filter: blur(40px);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  border-radius: 50%; filter: blur(60px);
   animation: float1 15s infinite ease-in-out; pointer-events: none; z-index: -1;
 }
 .orb-2 {
   position: fixed; bottom: -10%; right: -10%; width: 40vw; height: 40vw;
-  background: radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%);
-  border-radius: 50%; filter: blur(40px);
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.03) 0%, transparent 60%);
+  border-radius: 50%; filter: blur(60px);
   animation: float2 18s infinite ease-in-out reverse; pointer-events: none; z-index: -1;
 }
 
@@ -276,8 +276,17 @@ a:hover { color: var(--green-300); }
 .markdown-content ul, .markdown-content ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
 .markdown-content li { margin-bottom: 0.25rem; }
 .markdown-content code { background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; color: var(--green-300); }
-.markdown-content pre { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; overflow-x: auto; margin-bottom: 0.75rem; border: 1px solid var(--border); }
-.markdown-content pre code { background: transparent; padding: 0; color: #e2e8f0; }
+.markdown-content pre { background: rgba(0,0,0,0.03); padding: 1rem; border-radius: 8px; overflow-x: auto; margin-bottom: 0.75rem; border: 1px solid var(--border); }
+.markdown-content pre code { background: transparent; padding: 0; color: var(--text-primary); }
 
 /* ─── Toast overrides ───────────────────────────────────── */
 .react-hot-toast { font-family: 'Inter', sans-serif !important; }
+
+/* ─── Auth Split Layout ─────────────────────────────────── */
+.auth-layout { display: flex; min-height: 100vh; background: #ffffff; }
+.auth-left { flex: 1; display: flex; flex-direction: column; padding: 2rem; position: relative; }
+.auth-form-container { margin: 0 auto; width: 100%; max-width: 420px; }
+.auth-right { display: none; flex: 1.2; position: relative; background: #f8fafc; overflow: hidden; }
+@media (min-width: 1024px) {
+  .auth-right { display: block; }
+}

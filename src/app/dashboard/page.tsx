@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Microscope, MessageCircle, Sprout, TrendingUp, Clock, AlertTriangle, CheckCircle, ArrowRight, Brain } from 'lucide-react';
+import { Microscope, MessageCircle, Sprout, TrendingUp, Clock, AlertTriangle, CheckCircle, ArrowRight, Brain, Hand } from 'lucide-react';
 import { useAuthStore } from '@/lib/store';
 import api from '@/lib/api';
 
@@ -9,6 +9,7 @@ interface Stats {
   totalDiagnoses: number;
   totalCrops: number;
   recentDiagnoses: any[];
+  healthScore: number;
 }
 
 const QUICK_ACTIONS = [
@@ -23,17 +24,35 @@ const SEVERITY_COLOR: Record<string, string> = {
 
 export default function DashboardPage() {
   const { user } = useAuthStore();
-  const [stats, setStats] = useState<Stats>({ totalDiagnoses: 0, totalCrops: 0, recentDiagnoses: [] });
+  const [stats, setStats] = useState<Stats>({ totalDiagnoses: 0, totalCrops: 0, recentDiagnoses: [], healthScore: 100 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [diagRes] = await Promise.all([api.get('/diagnosis?limit=5')]);
+        const [diagRes, cropRes] = await Promise.all([
+          api.get('/diagnosis'),
+          api.get('/crops')
+        ]);
+        
+        const diagnoses = diagRes.data.diagnoses || [];
+        const crops = cropRes.data.crops || [];
+        
+        let totalScore = 0;
+        let validCrops = 0;
+        crops.forEach((c: any) => {
+          if (c.status === 'healthy') { totalScore += 100; validCrops++; }
+          else if (c.status === 'at_risk') { totalScore += 50; validCrops++; }
+          else if (c.status === 'diseased') { totalScore += 0; validCrops++; }
+        });
+        
+        const avgScore = validCrops > 0 ? Math.round(totalScore / validCrops) : 100;
+
         setStats({
-          totalDiagnoses: diagRes.data.diagnoses?.length ?? 0,
-          totalCrops: 0,
-          recentDiagnoses: diagRes.data.diagnoses?.slice(0, 4) ?? [],
+          totalDiagnoses: diagnoses.length,
+          totalCrops: crops.length,
+          recentDiagnoses: diagnoses.slice(0, 4),
+          healthScore: avgScore,
         });
       } catch { /* ignore */ } finally { setLoading(false); }
     }
@@ -49,11 +68,11 @@ export default function DashboardPage() {
       <div style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
           <div className="badge badge-green" style={{ fontSize: '0.75rem' }}>
-            <Brain size={12} /> Google Gemini 1.5 Pro
+            <Brain size={12} /> AgriBot Intelligence
           </div>
         </div>
-        <h1 style={{ marginBottom: '0.35rem' }}>
-          {greeting}, <span style={{ color: 'var(--green-400)' }}>{user?.name?.split(' ')[0]}</span> 👋
+        <h1 style={{ marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {greeting}, <span style={{ color: 'var(--green-400)' }}>{user?.name?.split(' ')[0]}</span> <Hand size={28} />
         </h1>
         <p style={{ color: 'var(--text-muted)' }}>Votre tableau de bord agricole intelligent</p>
       </div>
@@ -63,7 +82,7 @@ export default function DashboardPage() {
         {[
           { icon: Microscope, label: 'Diagnostics', value: loading ? '—' : stats.totalDiagnoses, color: '#22c55e' },
           { icon: Sprout,     label: 'Cultures',    value: loading ? '—' : stats.totalCrops,     color: '#fbbf24' },
-          { icon: TrendingUp, label: 'Score santé',  value: '94%',  color: '#4ade80' },
+          { icon: TrendingUp, label: 'Score santé', value: loading ? '—' : `${stats.healthScore}%`, color: stats.healthScore < 50 ? '#ef4444' : stats.healthScore < 80 ? '#fbbf24' : '#4ade80' },
           { icon: CheckCircle,label: 'Traités',      value: loading ? '—' : stats.recentDiagnoses.filter((d) => d.status === 'completed').length, color: '#86efac' },
         ].map(({ icon: Icon, label, value, color }) => (
           <div key={label} className="card glass" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
